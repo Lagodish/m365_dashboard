@@ -5,13 +5,13 @@ MessagesClass::MessagesClass(){
   memset((void*)&broadcast, DROP, sizeof(broadcast));
 }
 
-void MessagesClass::Post(uint8_t num){
+void MessagesClass::Post(unsigned char num){
   if(messages[num] == DROP){
     messages[num] = NEW;
   }
 }
 
-uint8_t MessagesClass::Get(uint8_t num){
+unsigned char MessagesClass::Get(unsigned char num){
   if(messages[num] == READY){
     messages[num] = DROP;
     return 1;
@@ -20,7 +20,7 @@ uint8_t MessagesClass::Get(uint8_t num){
 }
 
 void MessagesClass::Process(){
-  for(uint8_t i = 0; i < MAX_MESSAGES; i++){
+  for(unsigned char i = 0; i < MAX_MESSAGES; i++){
     switch(messages[i]){
       case NEW:
         messages[i] = READY;
@@ -32,11 +32,11 @@ void MessagesClass::Process(){
   }
 }
 
-void MessagesClass::PostBroadcast(uint8_t num){
+void MessagesClass::PostBroadcast(unsigned char num){
   broadcast[num] = NEW;
 }
 
-uint8_t MessagesClass::GetBroadcast(uint8_t num){
+unsigned char MessagesClass::GetBroadcast(unsigned char num){
   if(broadcast[num] == READY){
     return 1;
   }
@@ -44,7 +44,7 @@ uint8_t MessagesClass::GetBroadcast(uint8_t num){
 }
 
 void MessagesClass::ProcessBroadcast(){
-  for(uint8_t i = 0; i < MAX_BROADCAST; i++){
+  for(unsigned char i = 0; i < MAX_BROADCAST; i++){
     switch(broadcast[i]){
       case NEW:
         broadcast[i] = READY;
@@ -55,9 +55,10 @@ void MessagesClass::ProcessBroadcast(){
     }
   }
 }
-uint8_t MessagesClass::Peek(uint8_t num){
+unsigned char MessagesClass::Peek(unsigned char num){
   if(messages[num] == READY){
     return 1;
   }
   return 0;
 }
+
